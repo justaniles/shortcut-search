@@ -1,0 +1,82 @@
+$lightgrey: rgb(235, 235, 235);
+$darkgrey: rgb(130, 130, 130);
+
+.shortcuts {
+    flex: 1 1 100px;
+    overflow-y: auto;
+}
+.shortcuts-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.shortcut {
+    width: 100%;
+    height: 100%;
+    border: none;
+    text-align: left;
+    background-color: transparent;
+    color: black;
+    cursor: pointer;
+    padding: 10px 20px;
+    position: relative;
+
+    &__title {
+        margin: 0 0 5px;
+        font-weight: normal;
+        font-size: 16px;
+        word-break: break-word;
+    }
+
+    &__url {
+        margin: 0 0 5px;
+        color: $darkgrey;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    &__tags {
+        margin: 0;
+        color: $darkgrey;
+        word-break: break-word;
+    }
+
+    &__edit {
+        position: absolute;
+        top: 0px;
+        right: 0px;
+        height: 100%;
+
+        display: none;
+        justify-content: center;
+        align-items: center;
+        background-color: transparentize($color: $lightgrey, $amount: 0.3);
+    }
+    &:hover &__edit {
+        display: flex;
+    }
+    &.--isActivated &__edit {
+        display: flex;
+    }
+
+    &-edit__button {
+        cursor: pointer;
+        width: 70px;
+        height: 100%;
+        border: none;
+        background-color: transparent;
+        color: $darkgrey;
+
+        &:hover {
+            color: black;
+        }
+    }
+
+    &.--isActivated {
+        background-color: $lightgrey;
+    }
+
+    &:hover {
+        background-color: $lightgrey;
+    }
+}

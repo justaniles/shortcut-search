@@ -1,0 +1,22 @@
+{
+    "name": "Shortcut Search",
+    "version": "0.1.0",
+    "manifest_version": 2,
+    "icons": {
+        "64": "favicon.ico"
+    },
+    "browser_action": {
+        "default_icon": "favicon.ico",
+        "default_title": "Shortcut Search",
+        "default_popup": "index.html"
+    },
+    "commands": {
+        "_execute_browser_action": {
+            "suggested_key": {
+                "default": "Alt+N"
+            },
+            "description": "Opens shortcut search"
+        }
+    },
+    "permissions": ["tabs", "storage"]
+}
