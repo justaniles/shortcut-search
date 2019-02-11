@@ -32,14 +32,14 @@ export class SearchBox extends React.PureComponent<SearchBoxProps> {
                     type="text"
                     placeholder="Search"
                     value={this.props.text}
-                    onInput={this._onUpdate}
+                    onChange={this._onUpdate}
                     ref={this._searchBox}
                 />
             </div>
         );
     }
 
-    private _onUpdate = (event: React.FormEvent): void => {
-        this.props.onUpdate(event.currentTarget.nodeValue || "");
+    private _onUpdate = (event: React.FormEvent<HTMLInputElement>): void => {
+        this.props.onUpdate(event.currentTarget.value || "");
     };
 }

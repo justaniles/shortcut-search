@@ -1,16 +1,16 @@
 $lightgrey: rgb(235, 235, 235);
 $darkgrey: rgb(130, 130, 130);
 
-.shortcuts {
-    flex: 1 1 100px;
+.ShortcutsList {
+    height: 100%;
     overflow-y: auto;
 }
-.shortcuts-list {
+.ShortcutsList__List {
     list-style: none;
     padding: 0;
     margin: 0;
 }
-.shortcut {
+.Shortcut {
     width: 100%;
     height: 100%;
     border: none;
@@ -21,27 +21,21 @@ $darkgrey: rgb(130, 130, 130);
     padding: 10px 20px;
     position: relative;
 
-    &__title {
-        margin: 0 0 5px;
+    &__Title {
         font-weight: normal;
         font-size: 16px;
         word-break: break-word;
     }
 
-    &__url {
-        margin: 0 0 5px;
+    &__Subtitle {
         color: $darkgrey;
         overflow: hidden;
         text-overflow: ellipsis;
+        white-space: nowrap;
+        font-size: 12px;
     }
 
-    &__tags {
-        margin: 0;
-        color: $darkgrey;
-        word-break: break-word;
-    }
-
-    &__edit {
+    &__Edit {
         position: absolute;
         top: 0px;
         right: 0px;
@@ -50,26 +44,40 @@ $darkgrey: rgb(130, 130, 130);
         display: none;
         justify-content: center;
         align-items: center;
-        background-color: transparentize($color: $lightgrey, $amount: 0.3);
-    }
-    &:hover &__edit {
-        display: flex;
-    }
-    &.--isActivated &__edit {
-        display: flex;
-    }
+        background-color: $lightgrey;
 
-    &-edit__button {
-        cursor: pointer;
-        width: 70px;
-        height: 100%;
-        border: none;
-        background-color: transparent;
-        color: $darkgrey;
-
-        &:hover {
-            color: black;
+        &::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 100%;
+            width: 30px;
+            height: 100%;
+            background-image: linear-gradient(
+                to right,
+                transparent,
+                $lightgrey
+            );
         }
+
+        &__Button {
+            cursor: pointer;
+            width: 70px;
+            height: 100%;
+            border: none;
+            background-color: transparent;
+            color: $darkgrey;
+
+            &:hover {
+                color: black;
+            }
+        }
+    }
+    &:hover &__Edit {
+        display: flex;
+    }
+    &.--isActivated &__Edit {
+        display: flex;
     }
 
     &.--isActivated {

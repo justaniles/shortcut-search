@@ -1,0 +1,19 @@
+.App {
+    height: 100%;
+}
+
+.App-Main {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+
+    &__SearchBox {
+        padding: 20px;
+        flex: none;
+    }
+
+    &__Shortcuts {
+        flex: 1 1 100px;
+        overflow: hidden;
+    }
+}

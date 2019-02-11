@@ -11,61 +11,71 @@ export interface ShortcutsListProps {
     onEditClick: (shortcut: Shortcut) => void;
 }
 
+interface ShortcutProps {
+    shortcut: Shortcut;
+    isActivated: boolean;
+    onClick: () => void;
+    onEditClick: () => void;
+}
+const ShortcutComponent = ({
+    shortcut: { title, url, tags },
+    isActivated,
+    onClick,
+    onEditClick,
+}: ShortcutProps) => (
+    <div
+        className={"Shortcut " + (isActivated ? "--isActivated" : "")}
+        onClick={onClick}
+    >
+        <h3 className="Shortcut__Title">{title || url}</h3>
+        {title ? (
+            <p className="Shortcut__Subtitle" title={url}>
+                {url}
+            </p>
+        ) : null}
+        {tags && tags.length ? (
+            <p className="Shortcut__Subtitle">Tags: {tags.join(", ")}</p>
+        ) : null}
+        <div className="Shortcut__Edit">
+            <button
+                className="Shortcut__Edit__Button"
+                onClick={e => {
+                    e.stopPropagation();
+                    onEditClick();
+                }}
+            >
+                Edit
+            </button>
+        </div>
+    </div>
+);
+
 export class ShortcutsList extends React.PureComponent<ShortcutsListProps> {
-    render() {
-        const { shortcuts, activatedIndex, onClick } = this.props;
+    public render() {
+        const { shortcuts, activatedIndex } = this.props;
         return (
-            <div className="shortcuts">
-                <ol className="shortcuts-list">
-                    {shortcuts.map((shortcut, index) => {
-                        return (
-                            <li>
-                                <button
-                                    className={
-                                        "shortcut " +
-                                        (index === activatedIndex
-                                            ? "--isActivated"
-                                            : "")
-                                    }
-                                    onClick={this._onClick.bind(this, shortcut)}
-                                >
-                                    <h3 className="shortcut__title">
-                                        {shortcut.title}
-                                    </h3>
-                                    <p
-                                        className="shortcut__url"
-                                        title={shortcut.url}
-                                    >
-                                        {shortcut.url}
-                                    </p>
-                                    <p className="shortcut__tags">
-                                        Tags: {shortcut.tags.join(", ")}
-                                    </p>
-                                    <div className="shortcut__edit">
-                                        <button
-                                            className="shortcut-edit__button"
-                                            onClick={this._onEditClick.bind(
-                                                this,
-                                                shortcut
-                                            )}
-                                        >
-                                            Edit
-                                        </button>
-                                    </div>
-                                </button>
-                            </li>
-                        );
-                    })}
+            <div className="ShortcutsList">
+                <ol className="ShortcutsList__List">
+                    {shortcuts.map((shortcut, index) => (
+                        <li key={shortcut.id}>
+                            <ShortcutComponent
+                                shortcut={shortcut}
+                                isActivated={index === activatedIndex}
+                                onClick={this._onClick(shortcut)}
+                                onEditClick={this._onEditClick(shortcut)}
+                            />
+                        </li>
+                    ))}
                 </ol>
             </div>
         );
     }
 
-    private _onClick = (shortcut: Shortcut): void => {
+    private _onClick = (shortcut: Shortcut) => () => {
         this.props.onClick(shortcut);
     };
 
-    private _onEditClick = (shortcut: Shortcut): void => {
+    private _onEditClick = (shortcut: Shortcut) => () => {
         this.props.onEditClick(shortcut);
     };
 }
